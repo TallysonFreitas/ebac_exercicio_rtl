@@ -8,7 +8,7 @@ describe('Teste para o componente PostComment', () => {
         expect(screen.getByText('Comentar')).toBeInTheDocument();
     });
 
-    test('Deve um inserir comentarios', ()=>{
+    test('Deve primeiro inserir comentario', ()=>{
         render(<Post/>)
         const textarea = screen.getByPlaceholderText('Digite seu comentario')
         const botao = screen.getByTestId('btn-enviar-comentario')
@@ -23,5 +23,20 @@ describe('Teste para o componente PostComment', () => {
         
         expect(screen.getByText('carrinho engracado')).toBeInTheDocument()
         
+    })
+
+    test('Deve criar segundo comentario',()=>{
+        render(<App/>)
+        const mensagem = 'carro bonito'
+
+        const textarea = screen.getByPlaceholderText('Digite seu comentario')
+        const botao = screen.getByTestId('btn-enviar-comentario')
+
+        fireEvent.change(textarea, {target:{
+            value:mensagem
+        }})
+        fireEvent.click(botao)
+
+        expect(screen.getByText(mensagem)).toBeInTheDocument()
     })
 });
